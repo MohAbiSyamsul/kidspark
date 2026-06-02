@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+  <link rel="icon" type="image/png" href="{{ asset('assets/images/logo/kidspark-logo.png') }}">
 </head>
 <body>
 
