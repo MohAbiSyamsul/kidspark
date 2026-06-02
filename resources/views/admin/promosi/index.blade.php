@@ -22,25 +22,25 @@
         <label>Judul Promosi <span style="color:red">*</span></label>
         <input type="text" name="judul_promosi" class="form-control"
                placeholder="contoh: Promo Liburan Sekolah"
-               value="{{ old('judul_promosi', $edit_data->judul_promosi ?? '') }}" required>
+               value="{{ old('judul_promosi', $edit_data?->judul_promosi ?? '') }}" required>
       </div>
 
       <div class="form-group">
         <label>Deskripsi Promosi</label>
         <textarea name="deskripsi" class="form-control" rows="4"
-                  placeholder="Detail promosi...">{{ old('deskripsi', $edit_data->deskripsi ?? '') }}</textarea>
+                  placeholder="Detail promosi...">{{ old('deskripsi', $edit_data?->deskripsi ?? '') }}</textarea>
       </div>
 
       <div class="form-grid-2">
         <div class="form-group">
           <label>Tanggal Mulai <span style="color:red">*</span></label>
           <input type="date" name="tanggal_mulai" class="form-control"
-                 value="{{ old('tanggal_mulai', $edit_data->tanggal_mulai?->format('Y-m-d') ?? '') }}" required>
+                 value="{{ old('tanggal_mulai', $edit_data?->tanggal_mulai?->format('Y-m-d') ?? '') }}" required>
         </div>
         <div class="form-group">
           <label>Tanggal Selesai <span style="color:red">*</span></label>
           <input type="date" name="tanggal_selesai" class="form-control"
-                 value="{{ old('tanggal_selesai', $edit_data->tanggal_selesai?->format('Y-m-d') ?? '') }}" required>
+                 value="{{ old('tanggal_selesai', $edit_data?->tanggal_selesai?->format('Y-m-d') ?? '') }}" required>
         </div>
       </div>
 

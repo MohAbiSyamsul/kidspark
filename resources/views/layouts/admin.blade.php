@@ -13,6 +13,9 @@
 </head>
 <body>
 <div class="admin-wrapper">
+  <!-- SIDEBAR OVERLAY (mobile) -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+  
   <!-- SIDEBAR -->
   <aside class="sidebar" id="sidebar">
     <a href="{{ route('admin.dashboard') }}" class="sidebar-brand">
@@ -89,6 +92,9 @@
   <main class="admin-main">
     <!-- TOPBAR -->
     <div class="topbar">
+      <button class="topbar-toggle" id="sidebarToggle" aria-label="Toggle Sidebar">
+        <span class="material-icons">menu</span>
+      </button>
       <div class="topbar-title">
         <h2>@yield('page_title', 'Dashboard')</h2>
         <p>@yield('page_subtitle', 'Kids Park Admin Panel')</p>
