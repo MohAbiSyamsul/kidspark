@@ -129,7 +129,14 @@ Route::get('/debug/db-reset', function() {
         // Run migrations dengan force
         \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
 
-        return "<h1>✅ Database Berhasil Direset!</h1><p>Semua tabel telah dihapus dan dimigrasi ulang dengan data SQL terbaru.</p>";
+        // Buat symlink storage jika belum ada
+        try {
+            \Illuminate\Support\Facades\Artisan::call('storage:link');
+        } catch (\Exception $e) {
+            // Abaikan jika symlink sudah ada
+        }
+
+        return "<h1>✅ Database Berhasil Direset!</h1><p>Semua tabel telah dihapus, dimigrasi ulang dengan data SQL terbaru, dan symbolic link storage telah dibuat.</p>";
     } catch (\Exception $e) {
         return "<h1>❌ Error:</h1><p>" . $e->getMessage() . "</p>";
     }
