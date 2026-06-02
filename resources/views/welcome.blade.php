@@ -373,7 +373,7 @@
   <div class="brand">🎡 KidsPark</div>
   <p>Tempat bermain dan rekreasi keluarga yang menyenangkan</p>
   <p style="margin-top: 8px; font-size: 0.8rem; opacity: 0.5;">
-    &copy; {{ date('Y') }} Kids Park. Dibuat oleh Kelompok 9 - POLINDRA.
+    &copy; {{ date('Y') }} Kids Park. Dibuat oleh Kelompok 9 (Moh Abi Syamsul, Winesa, Alifa) - POLINDRA.
   </p>
   <p style="margin-top: 12px; text-align: center; font-size: 0.8rem;">
     <a href="{{ route('admin.login') }}" style="color: rgba(255,255,255,0.6); text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.3); padding-bottom: 2px;">
