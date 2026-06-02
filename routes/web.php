@@ -111,3 +111,27 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('/member/{member}/toggle',     [MemberController::class, 'toggleActive'])->name('member.toggle');
     });
 });
+
+// Route sementara untuk mereset dan memigrasi ulang database di Railway
+Route::get('/debug/db-reset', function() {
+    try {
+        \Illuminate\Support\Facades\Schema::disableForeignKeyConstraints();
+        $tablesObj = \Illuminate\Support\Facades\DB::select('SHOW TABLES');
+        $tables = [];
+        foreach ($tablesObj as $tableObj) {
+            $tables[] = current((array)$tableObj);
+        }
+        foreach ($tables as $table) {
+            \Illuminate\Support\Facades\Schema::drop($table);
+        }
+        \Illuminate\Support\Facades\Schema::enableForeignKeyConstraints();
+
+        // Run migrations dengan force
+        \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
+
+        return "<h1>✅ Database Berhasil Direset!</h1><p>Semua tabel telah dihapus dan dimigrasi ulang dengan data SQL terbaru.</p>";
+    } catch (\Exception $e) {
+        return "<h1>❌ Error:</h1><p>" . $e->getMessage() . "</p>";
+    }
+});
+
