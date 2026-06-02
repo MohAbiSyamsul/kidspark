@@ -1,0 +1,5 @@
+# Cegah eksekusi PHP di folder uploads
+<Files "*.php">
+    Order allow,deny
+    Deny from all
+</Files>
