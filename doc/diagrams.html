@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Diagram Kids Park - Template Baru</title>
+    <script type="module">
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+      mermaid.initialize({ startOnLoad: true, theme: 'default' });
+    </script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background-color: #f4f4f9; color: #333; }
+        .diagram-container { background: white; padding: 30px; margin-bottom: 40px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
+        h2 { border-bottom: 2px solid #ddd; padding-bottom: 10px; text-align: left; }
+        .instructions { background-color: #e3f2fd; padding: 15px; border-radius: 5px; border-left: 5px solid #1976d2; margin-bottom: 30px; }
+    </style>
+</head>
+<body>
+    <h1>Gambar Diagram SKPL Kids Park (Sesuai Struktur Baru)</h1>
+    
+    <div class="instructions">
+        <strong>💡 Cara Menyimpan:</strong> Tunggu gambar muncul &rarr; Klik kanan pada gambar &rarr; <b>Copy image</b> &rarr; Paste di Microsoft Word.
+    </div>
+
+    <!-- 1. Use Case Diagram -->
+    <div class="diagram-container">
+        <h2>3.4.1 Diagram Use Case</h2>
+        <div class="mermaid">
+flowchart LR
+    Publik([Pengunjung Publik])
+    Member([Member Terdaftar])
+    Admin([Administrator])
+
+    subgraph Sistem Informasi Kids Park
+        UC1(UC-1: Registrasi Akun)
+        UC2(UC-2: Login)
+        UC3(UC-3: Pesan Tiket & Upload Bukti)
+        UC4(UC-4: Lihat Data CMS Publik)
+        UC5(UC-5: Kelola CMS & Konten)
+        UC6(UC-6: Konfirmasi Pembayaran)
+        UC7(UC-7: Validasi Kunjungan)
+    end
+
+    Publik --> UC1
+    Publik --> UC4
+
+    Member --> UC2
+    Member --> UC3
+    Member --> UC4
+
+    Admin --> UC2
+    Admin --> UC5
+    Admin --> UC6
+    Admin --> UC7
+        </div>
+    </div>
+
+    <!-- 2. Class Diagram -->
+    <div class="diagram-container">
+        <h2>3.4.2 Diagram Kelas</h2>
+        <div class="mermaid">
+classDiagram
+    class Admin {
+        +int id_admin
+        +String username
+        +String password
+        +String nama
+        +login()
+        +manageCMS()
+    }
+    class Member {
+        +bigint id_member
+        +String nama_lengkap
+        +String email
+        +String no_member
+        +Enum tier
+        +int total_kunjungan
+        +register()
+        +computeTier()
+    }
+    class Tiket {
+        +int id_tiket
+        +String jenis_tiket
+        +decimal harga
+    }
+    class PesananTiket {
+        +bigint id_pesanan
+        +String kode_booking
+        +decimal total_bayar
+        +Enum status_pembayaran
+        +uploadPayment()
+        +validateVisit()
+    }
+
+    Admin "1" -- "*" Tiket : manages >
+    Member "1" -- "*" PesananTiket : places >
+    PesananTiket "1" *-- "*" Tiket : contains >
+        </div>
+    </div>
+
+    <!-- 3. Sequence Diagram -->
+    <div class="diagram-container">
+        <h2>3.4.3 Diagram Sequence (Pemesanan Tiket)</h2>
+        <div class="mermaid">
+sequenceDiagram
+    actor M as Member
+    participant W as Web Interface
+    participant C as Controller
+    participant DB as Database
+
+    M->>W: Akses form Beli Tiket
+    W->>C: Request data tiket & diskon
+    C->>DB: Query tiket & tier member
+    DB-->>C: Data tiket & diskon 
+    C-->>W: Tampilkan form (harga dipotong diskon)
+    
+    M->>W: Isi tgl kunjungan & kuantitas, Klik Pesan
+    W->>C: POST Data Pesanan
+    C->>C: Generate "Kode Booking"
+    C->>DB: Simpan record Pesanan (Status: pending)
+    DB-->>C: Sukses
+    C-->>W: Redirect ke Halaman Upload Bukti
+    
+    M->>W: Upload gambar Bukti Bayar
+    W->>C: Upload File & Update Status
+    C->>DB: Ubah status menjadi "menunggu_konfirmasi"
+    DB-->>C: Sukses
+    C-->>M: Pesanan berhasil diproses, menunggu Admin
+        </div>
+    </div>
+</body>
+</html>
